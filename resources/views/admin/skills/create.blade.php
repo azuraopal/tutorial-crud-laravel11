@@ -54,7 +54,7 @@
 					<x-form.error :messages="$errors->get('name')" />
 				</div>
 			</div>
-			<x-form.file-input 
+			<x-form.file-input
 				name="icon_path"
 				label="Skill Icon"
 				validFileFormats="JPG, JPEG, PNG, SVG"
