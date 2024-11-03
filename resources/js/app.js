@@ -23,7 +23,7 @@ document.addEventListener('alpine:init', () => {
                     // upscroll
                     this.scrollingDown = false
                     this.scrollingUp = true
-                    if (st == 0) {
+                    if (st === 0) {
                         //  reset
                         this.scrollingDown = false
                         this.scrollingUp = false
@@ -61,11 +61,7 @@ document.addEventListener('alpine:init', () => {
                 this.isSidebarHovered = value
             },
             handleWindowResize() {
-                if (window.innerWidth <= 1024) {
-                    this.isSidebarOpen = false
-                } else {
-                    this.isSidebarOpen = true
-                }
+                this.isSidebarOpen = window.innerWidth > 1024;
             },
             scrollingDown: false,
             scrollingUp: false,
