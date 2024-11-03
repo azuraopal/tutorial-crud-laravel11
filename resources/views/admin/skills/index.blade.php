@@ -16,15 +16,6 @@
 		</div>
 	</x-slot>
 
-	@session('success')
-		<div x-data="{ show: true }" x-show="show" role="alert" class="mb-4 relative flex w-full p-3 text-sm text-white bg-green-600 rounded-md">
-			{{ $value }}
-			<button @click="show = false" class="flex items-center justify-center transition-all w-8 h-8 rounded-md text-white hover:bg-white/10 active:bg-white/10 absolute top-1.5 right-1.5" type="button">
-				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
-			</button>
-		</div>
-	@endsession
-
 	<table class="mb-4 p-8 w-full align-middle text-gray-300 bg-white shadow-md rounded-xl dark:bg-dark-eval-1">
 		<thead class="align-bottom">
 			<tr class="font-semibold text-[0.95rem] text-gray-500 uppercase">
@@ -38,8 +29,8 @@
 				<tr>
 					<td class="py-4 px-6">
 						<div class="flex items-center gap-3">
-							<div class="relative inline-block shrink-0 rounded-2xl">
-								<img src="/images/{{ $skill->icon_path }}" class="size-16 inline-block shrink-0 rounded-2xl" alt="" />
+							<div class="relative shrink-0 rounded-2xl">
+								<img src="/images/{{ $skill->icon_path }}" class="size-16 rounded-2xl" alt="{{ $skill->name }}'s Image" />
 							</div>
 							<a class="font-semibold text-lg/normal">{{ $skill->name }}</a>
 						</div>
@@ -47,14 +38,11 @@
 					<td class="py-4 px-6 text-end">
 						<span class="font-semibold text-md/normal">{{ $skill->category }}</span>
 					</td>
-					<td class="py-4 px-6 text-end">
-						<form action="{{ route('admin.skill.destroy', $skill->id) }}" method="POST" class="divide-x divide-dark-eval-2">
-							<a href="{{ route('admin.skill.edit', $skill->id) }}" class="font-medium text-md/normal pr-2 text-blue-600 hover:text-blue-800">Edit</a>
-
-							@csrf
-							@method('DELETE')
-							<button type="submit" class="font-medium text-md/normal pl-2 text-red-600 hover:text-red-800">Remove</button>
-						</form>
+					<td class="py-4 px-6">
+                        <div class="inline-flex items-center justify-end w-full gap-2">
+                            <x-button variant="info" size="sm" href="{{ route('admin.skill.edit', $skill) }}">Edit</x-button>
+                            <x-button-delete action="{{ route('admin.skill.destroy', $skill) }}" />
+                        </div>
 					</td>
 				</tr>
 			@empty
