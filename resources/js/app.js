@@ -3,7 +3,7 @@ import './bootstrap'
 import Alpine from 'alpinejs'
 import collapse from '@alpinejs/collapse'
 import PerfectScrollbar from 'perfect-scrollbar'
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'
 
 window.PerfectScrollbar = PerfectScrollbar
 window.Swal = Swal
@@ -13,8 +13,7 @@ document.addEventListener('alpine:init', () => {
         let lastScrollTop = 0
         const init = function () {
             window.addEventListener('scroll', () => {
-                let st =
-                    window.pageYOffset || document.documentElement.scrollTop
+                let st = window.scrollY || document.documentElement.scrollTop
                 if (st > lastScrollTop) {
                     // downscroll
                     this.scrollingDown = true
@@ -37,34 +36,23 @@ document.addEventListener('alpine:init', () => {
             if (window.localStorage.getItem('dark')) {
                 return JSON.parse(window.localStorage.getItem('dark'))
             }
-            return (
-                !!window.matchMedia &&
-                window.matchMedia('(prefers-color-scheme: dark)').matches
-            )
+            return (!!window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
         }
         const setTheme = (value) => {
             window.localStorage.setItem('dark', value)
         }
         return {
-            init,
-            isDarkMode: getTheme(),
-            toggleTheme() {
+            init, isDarkMode: getTheme(), toggleTheme() {
                 this.isDarkMode = !this.isDarkMode
                 setTheme(this.isDarkMode)
-            },
-            isSidebarOpen: window.innerWidth > 1024,
-            isSidebarHovered: false,
-            handleSidebarHover(value) {
+            }, isSidebarOpen: window.innerWidth > 1024, isSidebarHovered: false, handleSidebarHover(value) {
                 if (window.innerWidth < 1024) {
                     return
                 }
                 this.isSidebarHovered = value
-            },
-            handleWindowResize() {
+            }, handleWindowResize() {
                 this.isSidebarOpen = window.innerWidth > 1024;
-            },
-            scrollingDown: false,
-            scrollingUp: false,
+            }, scrollingDown: false, scrollingUp: false,
         }
     })
 })
