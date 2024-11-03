@@ -43,7 +43,7 @@ class SkillController extends Controller
             $destinationPath = 'images/';
             $imageName = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $imageName);
-            $input['icon_path'] = "$imageName"; 
+            $input['icon_path'] = "$imageName";
         }
 
         Skill::create($input);
@@ -53,7 +53,7 @@ class SkillController extends Controller
 
     public function show(Skill $skill)
     {
-        return view('admin.skills.show', compact('skill'));
+        return view('admin.skill.show', compact('skill'));
     }
 
     /**
@@ -80,7 +80,7 @@ class SkillController extends Controller
             $destinationPath = 'images/';
             $imageName = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $imageName);
-            $input['icon_path'] = "$imageName"; 
+            $input['icon_path'] = "$imageName";
         } else {
             unset($input['icon_path']);
         }
@@ -96,6 +96,6 @@ class SkillController extends Controller
     public function destroy(Skill $skill)
     {
         $skill->delete();
-        return redirect()->route('admin.skill.index')->with('success', 'Product deleted successfully');
+        return redirect()->route('admin.skill.index')->with('success', 'Skill deleted successfully');
     }
 }
