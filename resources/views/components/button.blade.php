@@ -30,7 +30,7 @@
             $variantClasses = 'bg-yellow-500 text-white hover:bg-yellow-600 focus:ring-yellow-500';
         break;
         case 'info':
-            $variantClasses = 'bg-cyan-500 text-white hover:bg-cyan-600 focus:ring-cyan-500';
+            $variantClasses = 'bg-blue-500 text-white hover:bg-blue-600 focus:ring-blue-500';
         break;
         case 'black':
             $variantClasses = 'bg-black text-gray-300 hover:text-white hover:bg-gray-800 focus:ring-black dark:hover:bg-dark-eval-3';
@@ -39,26 +39,18 @@
             $variantClasses = 'bg-purple-500 text-white hover:bg-purple-600 focus:ring-purple-500';
     }
 
-    switch ($size) {
-        case 'sm':
-            $sizeClasses = $iconOnly ? 'p-1.5' : 'px-2.5 py-1.5 text-sm';
-        break;
-        case 'base':
-            $sizeClasses = $iconOnly ? 'p-2' : 'px-4 py-2 text-base';
-        break;
-        case 'lg':
-        default:
-            $sizeClasses = $iconOnly ? 'p-3' : 'px-5 py-2 text-xl';
-        break;
-    }
+    $sizeClasses = match ($size) {
+        'sm' => $iconOnly ? 'p-1.5' : 'px-2.5 py-1.5 text-sm',
+        'base' => $iconOnly ? 'p-2' : 'px-4 py-2 text-base',
+        default => $iconOnly ? 'p-3' : 'px-5 py-2 text-xl',
+    };
 
     $classes = $baseClasses . ' ' . $sizeClasses . ' ' . $variantClasses;
 
     if(!$squared && !$pill){
         $classes .= ' rounded-md';
-    } else if ($pill) {
+    } elseif ($pill) {
         $classes .= ' rounded-full';
-
     }
 
 @endphp
