@@ -29,6 +29,6 @@
     @method('DELETE')
 
     <x-button variant="danger" size="sm" type="button" x-on:click="confirmDelete">
-        {{ $buttonText }}
+        {{ $slot }}
     </x-button>
 </form>

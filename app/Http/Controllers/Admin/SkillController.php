@@ -15,7 +15,7 @@ class SkillController extends Controller
     {
         $skills = Skill::latest()->paginate(5);
         return view('admin.skills.index', compact('skills'))
-                    ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -72,21 +72,34 @@ class SkillController extends Controller
         $request->validate([
             'name' => 'required|max:100',
             'category' => 'required',
+            'icon_path' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048', // Validasi gambar, nullable jika tidak ada
         ]);
 
+        // Ambil semua input dari request
         $input = $request->all();
 
-        if ($image = $request->file('image')) {
+        // Cek apakah ada gambar baru yang diupload
+        if ($image = $request->file('icon_path')) {
+            // Tentukan path penyimpanan dan nama file
             $destinationPath = 'images/';
             $imageName = date('YmdHis') . "." . $image->getClientOriginalExtension();
+
+            // Pindahkan gambar ke folder yang ditentukan
             $image->move($destinationPath, $imageName);
-            $input['icon_path'] = "$imageName";
-        } else {
-            unset($input['icon_path']);
+
+            // Hapus gambar lama jika ada
+            if ($skill->icon_path && file_exists(public_path('images/' . $skill->icon_path))) {
+                unlink(public_path('images/' . $skill->icon_path));
+            }
+
+            // Simpan nama file gambar baru
+            $input['icon_path'] = $imageName;
         }
 
+        // Update data skill dengan input yang baru
         $skill->update($input);
 
+        // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('admin.skill.index')->with('success', 'Skill updated successfully.');
     }
 

@@ -16,9 +16,10 @@
 		</div>
 	</x-slot>
 
-	<table class="mb-4 p-8 w-full align-middle text-gray-300 bg-white shadow-md rounded-xl dark:bg-dark-eval-1">
+	<table id="myTable" class="mb-4 p-8 w-full align-middle text-gray-300 bg-white shadow-md rounded-xl dark:bg-dark-eval-1">
 		<thead class="align-bottom">
 			<tr class="font-semibold text-[0.95rem] text-gray-500 uppercase">
+				<th class="py-3 px-6 text-start max-w-[20px]">No.</th>
 				<th class="py-3 px-6 text-start min-w-[100px]">Skill Name</th>
 				<th class="py-3 px-6 text-end min-w-[75px]">Category</th>
 				<th class="py-3 px-6 text-end min-w-[50px]">Action</th>
@@ -27,6 +28,9 @@
 		<tbody class="divide-y-2 divide-dark-eval-3 divide-dashed">
 			@forelse ($skills as $skill)
 				<tr>
+					<td class="py-4 px-6">
+						<span>{{ $loop->iteration }}</span>
+					</td>
 					<td class="py-4 px-6">
 						<div class="flex items-center gap-3">
 							<div class="relative shrink-0 rounded-2xl">
@@ -41,7 +45,13 @@
 					<td class="py-4 px-6">
                         <div class="inline-flex items-center justify-end w-full gap-2">
                             <x-button variant="info" size="sm" href="{{ route('admin.skill.edit', $skill) }}">Edit</x-button>
-                            <x-button-delete action="{{ route('admin.skill.destroy', $skill) }}" />
+                            <form action="{{ route('admin.skill.destroy', $skill) }}" method="POST" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-600 hover:text-red-800">
+                                    Delete
+                                </button>
+                            </form>
                         </div>
 					</td>
 				</tr>

@@ -9,11 +9,11 @@
         <span>by</span>
 
         <a
-            href="https://github.com/ashtrath"
+            href="https://github.com/azuraopal"
             target="_blank"
             class="text-blue-600 hover:underline"
         >
-            ashtrath
+            azuranopal
         </a>
     </p>
 </footer>
